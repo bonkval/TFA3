@@ -67,4 +67,29 @@ Both forms redisplay submitted values and field errors when validation fails. Av
 
 Point the web server document root at `public/`, set a production `.env` using `.env.production.example`, enable the PHP GD extension, and allow the web server to write to `writable/` and `public/uploads/avatars/`. Import the SQL file or run the migrations and seeder as described above. Set `app.baseURL` to the actual hosted URL.
 
+### Render from GitHub
+
+The included `Dockerfile` runs PHP 8.3 with Apache and the extensions this app needs. Render can build it directly from this GitHub repository. GitHub Pages cannot run this PHP application.
+
+1. Arrange a **persistent MySQL database** first. Use an external MySQL provider that accepts connections from Render, or [deploy MySQL as a Render private service](https://render.com/docs/deploy-mysql). Render's MySQL option needs a paid persistent disk. Keep the hostname, database name, username, and password handy.
+2. In [Render](https://dashboard.render.com/), choose **New → Web Service → Git Provider**, connect GitHub, and select `bonkval/TFA3` on the `main` branch. Choose **Docker** as the language and leave the Dockerfile path as `./Dockerfile`.
+3. Choose a **paid web service with a persistent disk** if avatars must survive restarts. Mount the disk at `/var/www/html/public/uploads/avatars`. A free web service can demonstrate the pages, but uploaded avatars disappear after a restart or idle spin-down.
+4. Add these environment variables in Render's **Environment** section. Replace the sample values with your service URL and database details; include the trailing slash in the URL:
+
+   | Key | Value |
+   | --- | --- |
+   | `app_baseURL` | `https://YOUR-SERVICE.onrender.com/` |
+   | `database_default_hostname` | MySQL host |
+   | `database_default_database` | MySQL database name |
+   | `database_default_username` | MySQL username |
+   | `database_default_password` | MySQL password |
+   | `database_default_DBDriver` | `MySQLi` |
+   | `database_default_port` | `3306` |
+
+   `CI_ENVIRONMENT=production` is already set in the Docker image. Keep credentials in Render's environment settings, never in Git.
+5. Click **Create Web Service**. On a paid service, open its **Shell** after the first deploy and run `php spark migrate` and `php spark db:seed DatabaseSeeder` to create the tables and sample records. If your database provider has an import tool, you can instead import `database/tfa3_pos.sql` before deploying. Use **one** database initialization approach.
+6. Open the `onrender.com` URL and test `/customers`, `/users`, a new record, and a JPG/PNG avatar upload.
+
+Render's free web services have no persistent disks or shell access. Their free Postgres database also expires after 30 days, so it is not a lasting replacement for this project's MySQL database. See [Render's free service limits](https://render.com/docs/free).
+
 Repository: [github.com/bonkval/TFA3](https://github.com/bonkval/TFA3)
