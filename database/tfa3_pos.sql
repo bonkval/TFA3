@@ -32,4 +32,3 @@ INSERT IGNORE INTO `users` (`id`, `username`, `full_name`, `created_at`) VALUES
   (3, 'pcaluag', 'Philyip Caluag', '2026-09-15 00:00:00'),
   (4, 'lmedina', 'Lexus Medina', '2026-09-15 00:00:00'),
   (5, 'rodarbe', 'Raining Odarbe', '2026-09-15 00:00:00');
-
