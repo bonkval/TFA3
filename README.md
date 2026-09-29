@@ -2,12 +2,39 @@
 
 This CodeIgniter 4 project continues [TFA2](https://github.com/bonkval/TFA2). It adds validated customer and user creation, editing, and user avatar uploads. The committed `database/tfa3_pos.sql` contains the TFA2 sample records and the TFA3 avatar column. The same schema is represented by the two migrations.
 
-## Requirements
+## Screenshots
 
-- PHP 8.2 or newer with `intl`, `mbstring`, `mysqli`, `fileinfo`, and `gd` extensions
-- Composer
-- MySQL or MariaDB
-- A writable `writable/` directory and `public/uploads/avatars/` directory
+### Home (`/`)
+
+![Home page](screenshots/home.png)
+
+### About (`/about`)
+
+![About page](screenshots/about.png)
+
+### Customer Accounts (`/customers`)
+
+![Customer Accounts listing](screenshots/customers.png)
+
+### New Customer (`/customers/new`)
+
+![New Customer form](screenshots/customers-new.png)
+
+### Edit Customer (`/customers/1/edit`)
+
+![Edit Customer form](screenshots/customers-edit.png)
+
+### User Accounts (`/users`)
+
+![User Accounts listing](screenshots/users.png)
+
+### New User (`/users/new`)
+
+![New User form](screenshots/users-new.png)
+
+### Edit User (`/users/1/edit`)
+
+![Edit User form and profile picture upload](screenshots/users-edit.png)
 
 ## Local setup
 
