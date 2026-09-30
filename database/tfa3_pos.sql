@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(50) NOT NULL,
   `full_name` VARCHAR(100) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
   `avatar` VARCHAR(255) NULL,
   `created_at` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
@@ -26,9 +27,9 @@ INSERT IGNORE INTO `customers` (`id`, `full_name`, `email`, `phone`, `created_at
   (4, 'Lexus Medina', 'lexus.medina@example.com', '0967-676-7676', '2026-09-15 00:00:00'),
   (5, 'Raining Odarbe', 'raining.odarbe@example.com', '0967-676-7676', '2026-09-15 00:00:00');
 
-INSERT IGNORE INTO `users` (`id`, `username`, `full_name`, `created_at`) VALUES
-  (1, 'cvales', 'Cedrick Vales', '2026-09-15 00:00:00'),
-  (2, 'jbondoc', 'Joseph Bondoc', '2026-09-15 00:00:00'),
-  (3, 'pcaluag', 'Philyip Caluag', '2026-09-15 00:00:00'),
-  (4, 'lmedina', 'Lexus Medina', '2026-09-15 00:00:00'),
-  (5, 'rodarbe', 'Raining Odarbe', '2026-09-15 00:00:00');
+INSERT IGNORE INTO `users` (`id`, `username`, `full_name`, `password`, `created_at`) VALUES
+  (1, 'cvales', 'Cedrick Vales', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', '2026-09-15 00:00:00'),
+  (2, 'jbondoc', 'Joseph Bondoc', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', '2026-09-15 00:00:00'),
+  (3, 'pcaluag', 'Philyip Caluag', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', '2026-09-15 00:00:00'),
+  (4, 'lmedina', 'Lexus Medina', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', '2026-09-15 00:00:00'),
+  (5, 'rodarbe', 'Raining Odarbe', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', '2026-09-15 00:00:00');

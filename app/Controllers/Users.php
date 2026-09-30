@@ -28,6 +28,7 @@ class Users extends BaseController
             return $this->form(null, $data, $this->validator->getErrors());
         }
 
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         (new UserModel())->insert($data + ['created_at' => date('Y-m-d H:i:s')]);
 
         return redirect()->to('/users')->with('success', 'User created.');
@@ -54,6 +55,12 @@ class Users extends BaseController
         $data = $this->input();
         if (! $this->validateData($data, $this->rules($id))) {
             return $this->form($user, $data, $this->validator->getErrors());
+        }
+
+        if ($data['password'] === '') {
+            unset($data['password']);
+        } else {
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         }
 
         $avatar = $this->request->getFile('avatar');
@@ -95,6 +102,7 @@ class Users extends BaseController
         return [
             'username' => trim((string) $this->request->getPost('username')),
             'full_name' => trim((string) $this->request->getPost('full_name')),
+            'password' => (string) $this->request->getPost('password'),
         ];
     }
 
@@ -105,6 +113,7 @@ class Users extends BaseController
         return [
             'username' => 'required|max_length[50]|' . $unique,
             'full_name' => 'required|max_length[100]',
+            'password' => $id === null ? 'required|min_length[8]|max_length[255]' : 'permit_empty|min_length[8]|max_length[255]',
         ];
     }
 
@@ -113,7 +122,7 @@ class Users extends BaseController
         return view('users/form', [
             'title' => $user === null ? 'POS Lab | New User' : 'POS Lab | Edit User',
             'user' => $user,
-            'values' => $values ?? $user ?? ['username' => '', 'full_name' => ''],
+            'values' => $values ?? $user ?? ['username' => '', 'full_name' => '', 'password' => ''],
             'errors' => $errors,
         ]);
     }
